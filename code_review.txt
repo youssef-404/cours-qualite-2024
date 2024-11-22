@@ -11,6 +11,7 @@ def authenticate_user(username, password):
         print("User does not exist!")
         return False
 
+        
 
 
 def calculate_discount(price, discount):
