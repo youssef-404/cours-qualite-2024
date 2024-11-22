@@ -13,4 +13,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run a one-line script
-        run: tar -cvf archive.tar ../../
+        run: tar -cvf archive.tar ./
+      
+      - name: Upload the archive as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: archive
+          path: archive.tar
