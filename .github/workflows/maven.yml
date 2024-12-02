@@ -2,9 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "demoMaven" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "demoMaven" ]
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
