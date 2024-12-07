@@ -26,7 +26,7 @@ public class ElectricalResistance {
         // durée de chauffe d'un volume d'eau
         // Temps en sec = (masse x Ceau x (temp finale - temp départ)) / puissance résistance
         // on vient ensuite multiplier par 1000 pour avoir le temps en ms puis diviser par 10 pour éviter un temps d'attente trop long
-        double heatingTime = ((waterVolume * 5180 * (90 - 20)) / power) * 1000 / 10;
+        double heatingTime = ((waterVolume * 4180 * (90 - 20)) / power) * 1000 / 10;
         logger.info("Water heating time : "  +  heatingTime);
         logger.info("Water heating...");
         Thread.sleep((long) (heatingTime));
