@@ -1,4 +1,4 @@
-name: Build and Test
+name: Coffee Machine CI Workflow
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
     - name: Setup JDK
       uses: actions/setup-java@v3
       with:
-        java-version: '18'
+        java-version: '17'
         distribution: 'temurin'
       
     - name: Navigate to coffee-machine folder
