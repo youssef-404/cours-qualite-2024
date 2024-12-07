@@ -21,7 +21,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
-
 public class CucumberStepsCoffeeMachineMakeACoffeeTest {
 
     public CoffeeMachine coffeeMachine;
@@ -73,12 +72,11 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
             containerWithCoffee = coffeeMachine.makeACoffee(cup, CoffeeType.valueOf(coffeeType));
 
     }
-    
+
     @Then("the coffee machine return a coffee mug not empty")
     public void theCoffeeMachineReturnACoffeeMugNotEmpty() {
         Assertions.assertFalse(containerWithCoffee.isEmpty());
     }
-
 
     @And("a coffee volume equals to {double}")
     public void aCoffeeVolumeEqualsTo(double coffeeVolume) {
@@ -94,6 +92,4 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
 
         assertThat(containerWithCoffee.getCoffeeType(), is(CoffeeType.valueOf(coffeeType)));
     }
-
-
 }
