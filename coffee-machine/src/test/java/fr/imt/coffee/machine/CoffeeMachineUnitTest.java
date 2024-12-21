@@ -1,5 +1,6 @@
 package fr.imt.coffee.machine;
 
+import fr.imt.coffee.machine.exception.MachineNotPluggedException;
 import fr.imt.coffee.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.coffee.storage.cupboard.container.Cup;
 import fr.imt.coffee.storage.cupboard.exception.CupNotEmptyException;
@@ -120,6 +121,24 @@ public class CoffeeMachineUnitTest {
                 coffeeMachineUnderTest.makeACoffee(mockCup, CoffeeType.MOKA);
             });
     }
+
+    /**
+     *  on vérifie que la machine ne peut pas faire un café si elle n'est pas branchée
+     */
+    @Test
+    public void testMakeACoffeeMachineNotPluggedException(){
+        Cup mockCup = Mockito.mock(Cup.class);
+        Mockito.when(mockCup.isEmpty()).thenReturn(true);
+
+        //On vérifie que la machine n'est pas branchée
+        Assertions.assertFalse(coffeeMachineUnderTest.isPlugged());
+
+        //On vérifie que la machine n'est pas branchée
+        Assertions.assertThrows(MachineNotPluggedException.class, ()->{
+            coffeeMachineUnderTest.makeACoffee(mockCup, CoffeeType.MOKA);
+        });
+    }
+
 
     @AfterEach
     public void afterTest(){

@@ -2,7 +2,6 @@ package fr.imt.coffee.machine;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 /**
@@ -16,7 +15,7 @@ import org.junit.runner.RunWith;
 )
 //Permet d'ignorer les tests fonctionnels de Cucumber
 //Ne lance pas la class CoffeeMachineFunctionalTest
-@Ignore
+
 public class CoffeeMachineCucumberFunctionalTest {
 
 }
