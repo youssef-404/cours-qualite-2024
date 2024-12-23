@@ -87,16 +87,16 @@ public class CoffeeMachine {
 <span class="fc" id="L87">            throw new MachineNotPluggedException(&quot;You must plug your coffee machine.&quot;);</span>
         }
 
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (waterTank.getActualVolume() &lt; container.getCapacity()){</span>
-<span class="nc" id="L91">            throw new LackOfWaterInTankException(&quot;You must add more water in the water tank.&quot;);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (waterTank.getActualVolume() &lt; container.getCapacity()){</span>
+<span class="fc" id="L91">            throw new LackOfWaterInTankException(&quot;You must add more water in the water tank.&quot;);</span>
         }
 
 <span class="fc bfc" id="L94" title="All 2 branches covered.">        if (!container.isEmpty()){</span>
 <span class="fc" id="L95">            throw new CupNotEmptyException(&quot;The container given is not empty.&quot;);</span>
         }
 
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if(coffeeType != this.beanTank.getBeanCoffeeType()){</span>
-<span class="nc" id="L99">            throw new CoffeeTypeCupDifferentOfCoffeeTypeTankException(&quot;The type of coffee to be made in the cup is different from that in the tank.&quot;);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if(coffeeType != this.beanTank.getBeanCoffeeType()){</span>
+<span class="fc" id="L99">            throw new CoffeeTypeCupDifferentOfCoffeeTypeTankException(&quot;The type of coffee to be made in the cup is different from that in the tank.&quot;);</span>
         }
 
 <span class="fc" id="L102">        coffeeMachineFailure();</span>
@@ -106,8 +106,8 @@ public class CoffeeMachine {
 <span class="nc" id="L106">            return null;</span>
         }
 
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if(coffeeType.toString().contains(&quot;_CREMA&quot;)){</span>
-<span class="nc" id="L110">            throw new CannotMakeCremaWithSimpleCoffeeMachine(&quot;You cannot make an espresso with a CoffeeMachine, please use EspressoCoffeeMachine&quot;);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if(coffeeType.toString().contains(&quot;_CREMA&quot;)){</span>
+<span class="fc" id="L110">            throw new CannotMakeCremaWithSimpleCoffeeMachine(&quot;You cannot make an espresso with a CoffeeMachine, please use EspressoCoffeeMachine&quot;);</span>
         }
 
 <span class="fc" id="L113">        electricalResistance.waterHeating(container.getCapacity());</span>
@@ -145,15 +145,15 @@ public class CoffeeMachine {
     }
 
     public WaterTank getWaterTank() {
-<span class="nc" id="L148">        return waterTank;</span>
+<span class="fc" id="L148">        return waterTank;</span>
     }
 
     public WaterPump getWaterPump() {
-<span class="nc" id="L152">        return waterPump;</span>
+<span class="fc" id="L152">        return waterPump;</span>
     }
 
     public ElectricalResistance getElectricalResistance() {
-<span class="nc" id="L156">        return electricalResistance;</span>
+<span class="fc" id="L156">        return electricalResistance;</span>
     }
 
     public boolean isPlugged() {
@@ -185,10 +185,10 @@ public class CoffeeMachine {
 <span class="fc" id="L185">    }</span>
 
     public CoffeeGrinder getCoffeeGrinder() {
-<span class="nc" id="L188">        return coffeeGrinder;</span>
+<span class="fc" id="L188">        return coffeeGrinder;</span>
     }
     public BeanTank getBeanTank() {
-<span class="nc" id="L191">        return beanTank;</span>
+<span class="fc" id="L191">        return beanTank;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

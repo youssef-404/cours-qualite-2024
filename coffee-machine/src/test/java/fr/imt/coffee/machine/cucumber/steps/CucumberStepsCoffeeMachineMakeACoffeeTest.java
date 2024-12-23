@@ -92,4 +92,17 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
 
         assertThat(containerWithCoffee.getCoffeeType(), is(CoffeeType.valueOf(coffeeType)));
     }
+
+    @Then("making a coffee {string} should fail due to lack of water")
+    public void makingACoffeeShouldFailDueToLackOfWater(String coffeeType){
+        Exception exception = Assertions.assertThrows(LackOfWaterInTankException.class, () -> {
+            if (mug != null)
+                coffeeMachine.makeACoffee(mug, CoffeeType.valueOf(coffeeType));
+            if (cup != null)
+                coffeeMachine.makeACoffee(cup, CoffeeType.valueOf(coffeeType));
+        });
+
+        Assertions.assertEquals("You must add more water in the water tank.", exception.getMessage());
+    }
+
 }

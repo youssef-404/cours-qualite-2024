@@ -1,7 +1,13 @@
 package fr.imt.coffee.machine;
 
+import fr.imt.coffee.MainCoffee;
+import fr.imt.coffee.MainEspresso;
+import fr.imt.coffee.machine.exception.CannotMakeCremaWithSimpleCoffeeMachine;
+import fr.imt.coffee.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
+import fr.imt.coffee.machine.exception.LackOfWaterInTankException;
 import fr.imt.coffee.machine.exception.MachineNotPluggedException;
 import fr.imt.coffee.storage.cupboard.coffee.type.CoffeeType;
+import fr.imt.coffee.storage.cupboard.container.CoffeeCup;
 import fr.imt.coffee.storage.cupboard.container.Cup;
 import fr.imt.coffee.storage.cupboard.exception.CupNotEmptyException;
 import org.junit.jupiter.api.AfterEach;
@@ -10,10 +16,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class CoffeeMachineUnitTest {
     public CoffeeMachine coffeeMachineUnderTest;
@@ -140,8 +149,77 @@ public class CoffeeMachineUnitTest {
     }
 
 
+    /**
+     * On vérifie que la machine ne peut pas faire un café si le type de café demandé est différent de celui dans le réservoir
+     */
+    @Test
+    public void testMakeACoffeeCoffeeTypeCupDifferentOfCoffeeTypeTankException(){
+        Cup mockCup = Mockito.mock(Cup.class);
+        Mockito.when(mockCup.isEmpty()).thenReturn(true);
+
+        coffeeMachineUnderTest.plugToElectricalPlug();
+
+        Assertions.assertThrows(CoffeeTypeCupDifferentOfCoffeeTypeTankException.class, ()->{
+            coffeeMachineUnderTest.makeACoffee(mockCup, CoffeeType.MOKA);
+        });
+    }
+
+
+
+    /**
+     * on vérifie que la machine ne peut pas faire un café si elle n'a pas assez d'eau dans le réservoir
+     */
+    @Test
+    public void testLackOfWaterInTankException(){
+        Cup mockCup = Mockito.mock(Cup.class);
+        Mockito.when(mockCup.isEmpty()).thenReturn(true);
+        Mockito.when(mockCup.getCapacity()).thenReturn(0.25);
+
+        coffeeMachineUnderTest.plugToElectricalPlug();
+
+        coffeeMachineUnderTest.addWaterInTank(0.1);
+
+        Assertions.assertThrows(LackOfWaterInTankException.class, ()->{
+            coffeeMachineUnderTest.makeACoffee(mockCup, CoffeeType.MOKA);
+        });
+    }
+
+    @Test
+    public void testCannotMakeCremaWithSimpleCoffeeMachine() {
+        Cup mockCup1 = Mockito.mock(Cup.class);
+        Mockito.when(mockCup1.isEmpty()).thenReturn(true);
+        Mockito.when(mockCup1.getCapacity()).thenReturn(0.25);
+        Random randomMock = Mockito.mock(Random.class, Mockito.withSettings().withoutAnnotations());
+        Mockito.when(randomMock.nextGaussian()).thenReturn(0.6);
+
+        coffeeMachineUnderTest.setRandomGenerator(randomMock);
+        coffeeMachineUnderTest.plugToElectricalPlug();
+
+        coffeeMachineUnderTest.addWaterInTank(1.0);
+
+        // Add coffee beans to the tank
+        coffeeMachineUnderTest.addCoffeeInBeanTank(0.5, CoffeeType.ARABICA_CREMA);
+
+        // Attempt to make a coffee and expect the CannotMakeCremaWithSimpleCoffeeMachine exception
+        Assertions.assertThrows(CannotMakeCremaWithSimpleCoffeeMachine.class, () -> {
+            coffeeMachineUnderTest.makeACoffee(mockCup1, CoffeeType.ARABICA_CREMA);
+        });
+    }
+
+    @Test
+    public void testMainInstanceNotNull() {
+        MainCoffee mainMachine = new MainCoffee();
+        Assertions.assertNotNull(mainMachine);
+    }
+
+
+
+
+
     @AfterEach
     public void afterTest(){
-
+        coffeeMachineUnderTest = null;
     }
+
+
 }
